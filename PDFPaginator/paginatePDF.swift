@@ -15,13 +15,14 @@ func printPDFContents(_ url: URL){
 }
 
 func writeOnPage(_ inUrl: URL){
-    let outUrl: CFURL = URL(fileURLWithPath: "/Users/pauliglot/Downloads/testout.pdf") as CFURL
+    let outUrl = URL(fileURLWithPath: "/Users/pauliglot/Downloads/testout.pdf")
     
     let doc: PDFDocument = PDFDocument(url: inUrl)!
     let page: PDFPage = doc.page(at: 0)!
     var mediaBox: CGRect = page.bounds(for: .mediaBox)
-    
-    let gc = CGContext(outUrl, mediaBox: &mediaBox, nil)!
+    let pdfData = NSMutableData()
+    let pdfConsumer = CGDataConsumer(data: pdfData as CFMutableData)!
+    let gc = CGContext(consumer: pdfConsumer, mediaBox: &mediaBox, nil)!
     let nsgc = NSGraphicsContext(cgContext: gc, flipped: false)
     NSGraphicsContext.current = nsgc
     gc.beginPDFPage(nil); do {
@@ -47,4 +48,6 @@ func writeOnPage(_ inUrl: URL){
     }; gc.endPDFPage()
     NSGraphicsContext.current = nil
     gc.closePDF()
+    let outDocument = PDFDocument(data: pdfData as Data)!
+    outDocument.write(to: outUrl)
 }
