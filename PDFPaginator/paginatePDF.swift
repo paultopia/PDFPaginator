@@ -38,8 +38,8 @@ func writeOnPage(page: PDFPage, pageNum: Int) -> PDFPage {
     NSGraphicsContext.current = nil
     gc.closePDF()
     
-    let outDocument = PDFDocument(data: pdfData as Data)!
-    return outDocument.page(at: 0)!
+    let outImage = NSImage(data: pdfData as Data)!
+    return PDFPage(image: outImage)!
 }
 
 func combinePDFPages(pages: [PDFPage]) -> PDFDocument {
