@@ -16,7 +16,6 @@ func writeOnPage(doc: PDFDocument, pageNum: Int) -> PDFDocument {
     let pdfData = NSMutableData()
     let pdfConsumer = CGDataConsumer(data: pdfData as CFMutableData)!
     let gc = CGContext(consumer: pdfConsumer, mediaBox: &mediaBox, nil)!
->>>>>>> temp-branch
     let nsgc = NSGraphicsContext(cgContext: gc, flipped: false)
     NSGraphicsContext.current = nsgc
     gc.beginPDFPage(nil); do {
@@ -33,7 +32,6 @@ func writeOnPage(doc: PDFDocument, pageNum: Int) -> PDFDocument {
             ])
         // moving text around: see https://stackoverflow.com/a/44641001/4386239
         // which is what most of this stuff is swiped from
->>>>>>> temp-branch
         gc.saveGState(); do {
             richText.draw(at: .zero)
         }; gc.restoreGState()
@@ -70,7 +68,7 @@ func makePDFArray(_ inUrl: URL){
     for i in 0..<pageCount {
         outArray.append(writeOnPage(doc: doc, pageNum: i))
     }
-    let otherOutUrl = URL(fileURLWithPath: "/Users/pauliglot/Downloads/testout.pdf")
+    let otherOutUrl = URL(fileURLWithPath: "/Users/pauliglot/Downloads/paginated_pdf.pdf")
     let wholeDoc = mergePDFs(pdfs: outArray)
     wholeDoc.write(to: otherOutUrl)
 

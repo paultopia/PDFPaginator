@@ -722,9 +722,6 @@
                             </button>
                         </subviews>
                     </view>
-                    <connections>
-                        <outlet property="doTheThingButtonPressed" destination="S0K-7H-aRM" id="ZJ3-g5-cCo"/>
-                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
