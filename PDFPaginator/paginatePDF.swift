@@ -15,8 +15,6 @@ func printPDFContents(_ url: URL){
 }
 
 func writeOnPage(doc: PDFDocument, page: Int) -> PDFDocument {
-    //let outUrl = URL(fileURLWithPath: "/Users/pauliglot/Downloads/testout.pdf")
-    //let doc: PDFDocument = PDFDocument(url: inUrl)!
     let page: PDFPage = doc.page(at: page)!
     var mediaBox: CGRect = page.bounds(for: .mediaBox)
     let pdfData = NSMutableData()
@@ -35,7 +33,7 @@ func writeOnPage(doc: PDFDocument, page: Int) -> PDFDocument {
             NSAttributedString.Key.foregroundColor: NSColor.red,
             NSAttributedString.Key.paragraphStyle: style
             ])
-
+        // moving text around: see https://stackoverflow.com/a/44641001/4386239
         gc.saveGState(); do {
             richText.draw(at: .zero)
         }; gc.restoreGState()
@@ -44,15 +42,16 @@ func writeOnPage(doc: PDFDocument, page: Int) -> PDFDocument {
     NSGraphicsContext.current = nil
     gc.closePDF()
     let outDocument = PDFDocument(data: pdfData as Data)!
-    //outDocument.write(to: outUrl)
     return outDocument
 }
 
 func makePDFArray(_ inUrl: URL){
     var outArray = [PDFDocument]()
     let doc: PDFDocument = PDFDocument(url: inUrl)!
-    let outDoc = writeOnPage(doc: doc, page: 0)
-    outArray.append(outDoc)
+    let pageCount = doc.pageCount
+    for i in 0..<pageCount {
+        outArray.append(writeOnPage(doc: doc, page: i))
+    }
     let outUrl = URL(fileURLWithPath: "/Users/pauliglot/Downloads/testout.pdf")
-    outArray[0].write(to: outUrl)
+    outArray.last!.write(to: outUrl)
 }
