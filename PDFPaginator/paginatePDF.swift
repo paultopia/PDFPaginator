@@ -32,16 +32,12 @@ func writeOnPage(_ inUrl: URL){
         style.alignment = .center
         
         let richText = NSAttributedString(string: "Hello, world!", attributes: [
-            NSAttributedString.Key.font: NSFont.systemFont(ofSize: 64),
+            NSAttributedString.Key.font: NSFont.systemFont(ofSize: 12),
             NSAttributedString.Key.foregroundColor: NSColor.red,
             NSAttributedString.Key.paragraphStyle: style
             ])
-        
-        let richTextBounds = richText.size()
-        let point = CGPoint(x: mediaBox.midX - richTextBounds.width / 2, y: mediaBox.midY - richTextBounds.height / 2)
+
         gc.saveGState(); do {
-            gc.translateBy(x: point.x, y: point.y)
-            gc.rotate(by: .pi / 5)
             richText.draw(at: .zero)
         }; gc.restoreGState()
         
