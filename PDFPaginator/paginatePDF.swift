@@ -9,8 +9,7 @@
 import Cocoa
 import Quartz
 
-
-func writeOnPage(doc: PDFDocument, pageNum: Int) -> PDFDocument {
+func writeOnPage(doc: PDFDocument, pageNum: Int) -> PDFPage {
     let page: PDFPage = doc.page(at: pageNum)!
     var mediaBox: CGRect = page.bounds(for: .mediaBox)
     let pdfData = NSMutableData()
@@ -24,8 +23,8 @@ func writeOnPage(doc: PDFDocument, pageNum: Int) -> PDFDocument {
         let style = NSMutableParagraphStyle()
         style.alignment = .left
         
-
-        let richText = NSAttributedString(string: "page: \(pageNum)", attributes: [
+        
+        let richText = NSAttributedString(string: "page: \(pageNum + 1)", attributes: [
             NSAttributedString.Key.font: NSFont.systemFont(ofSize: 12),
             NSAttributedString.Key.foregroundColor: NSColor.red,
             NSAttributedString.Key.paragraphStyle: style
@@ -39,33 +38,28 @@ func writeOnPage(doc: PDFDocument, pageNum: Int) -> PDFDocument {
     }; gc.endPDFPage()
     NSGraphicsContext.current = nil
     gc.closePDF()
-
+    
     let outDocument = PDFDocument(data: pdfData as Data)!
-    return outDocument
+    return outDocument.page(at: 0)!
 }
 
-func mergePDFs(pdfs: [PDFDocument]) -> PDFDocument {
-    let first = pdfs[0]
-    let rest = pdfs[1...]
-    var curpagenum = 1
-    var curpage: PDFPage
-    for p2add in rest {
-        curpage = p2add.page(at: 0)!
-        first.insert(curpage, at: curpagenum)
-        curpagenum+=1
+func combinePDFPages(pages: [PDFPage]) -> PDFDocument {
+    var outDoc = PDFDocument()
+    for (num, page) in pages.enumerated() {
+        outDoc.insert(page, at: num)
     }
-    return first
+    return outDoc
 }
 
 func makePDFArray(_ inUrl: URL){
-    var outArray = [PDFDocument]()
+    var outArray = [PDFPage]()
     let doc: PDFDocument = PDFDocument(url: inUrl)!
     let pageCount = doc.pageCount
     for i in 0..<pageCount {
         outArray.append(writeOnPage(doc: doc, pageNum: i))
     }
     let otherOutUrl = URL(fileURLWithPath: "/Users/pauliglot/Downloads/paginated_pdf.pdf")
-    let wholeDoc = mergePDFs(pdfs: outArray)
+    let wholeDoc = combinePDFPages(pages: outArray)
     wholeDoc.write(to: otherOutUrl)
 
 }
