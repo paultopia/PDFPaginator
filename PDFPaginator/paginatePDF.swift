@@ -9,8 +9,7 @@
 import Cocoa
 import Quartz
 
-func writeOnPage(doc: PDFDocument, pageNum: Int) -> PDFPage {
-    let page: PDFPage = doc.page(at: pageNum)!
+func writeOnPage(page: PDFPage, pageNum: Int) -> PDFPage {
     var mediaBox: CGRect = page.bounds(for: .mediaBox)
     let pdfData = NSMutableData()
     let pdfConsumer = CGDataConsumer(data: pdfData as CFMutableData)!
@@ -55,8 +54,10 @@ func makePDFArray(_ inUrl: URL){
     var outArray = [PDFPage]()
     let doc: PDFDocument = PDFDocument(url: inUrl)!
     let pageCount = doc.pageCount
+    var page: PDFPage
     for i in 0..<pageCount {
-        outArray.append(writeOnPage(doc: doc, pageNum: i))
+        page = doc.page(at: i)!
+        outArray.append(writeOnPage(page: page, pageNum: i))
     }
     let otherOutUrl = URL(fileURLWithPath: "/Users/pauliglot/Downloads/paginated_pdf.pdf")
     let wholeDoc = combinePDFPages(pages: outArray)
