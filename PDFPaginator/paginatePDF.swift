@@ -47,16 +47,12 @@ func writeOnPage(doc: PDFDocument, pageNum: Int) -> PDFDocument {
 func mergePDFs(pdfs: [PDFDocument]) -> PDFDocument {
     let first = pdfs[0]
     let rest = pdfs[1...]
-    var curpagenum = first.pageCount
+    var curpagenum = 1
     var curpage: PDFPage
-    var lenOfCurAdd: Int
     for p2add in rest {
-        lenOfCurAdd = p2add.pageCount
-        for i in 0..<lenOfCurAdd {
-            curpage = p2add.page(at: i)!
-            first.insert(curpage, at: curpagenum)
-            curpagenum+=1
-        }
+        curpage = p2add.page(at: 0)!
+        first.insert(curpage, at: curpagenum)
+        curpagenum+=1
     }
     return first
 }
