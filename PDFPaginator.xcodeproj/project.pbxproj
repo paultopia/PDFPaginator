@@ -11,6 +11,8 @@
 		F7D7A1C922A75D35004EF0DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D7A1C822A75D35004EF0DD /* ViewController.swift */; };
 		F7D7A1CB22A75D37004EF0DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7D7A1CA22A75D37004EF0DD /* Assets.xcassets */; };
 		F7D7A1CE22A75D37004EF0DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F7D7A1CC22A75D37004EF0DD /* Main.storyboard */; };
+		F7D7A1D722A75D77004EF0DD /* filePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D7A1D622A75D77004EF0DD /* filePicker.swift */; };
+		F7D7A1D922A75E5A004EF0DD /* paginatePDF.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7D7A1D822A75E5A004EF0DD /* paginatePDF.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +23,8 @@
 		F7D7A1CD22A75D37004EF0DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F7D7A1CF22A75D37004EF0DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F7D7A1D022A75D37004EF0DD /* PDFPaginator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PDFPaginator.entitlements; sourceTree = "<group>"; };
+		F7D7A1D622A75D77004EF0DD /* filePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = filePicker.swift; sourceTree = "<group>"; };
+		F7D7A1D822A75E5A004EF0DD /* paginatePDF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = paginatePDF.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,8 @@
 			isa = PBXGroup;
 			children = (
 				F7D7A1C622A75D35004EF0DD /* AppDelegate.swift */,
+				F7D7A1D622A75D77004EF0DD /* filePicker.swift */,
+				F7D7A1D822A75E5A004EF0DD /* paginatePDF.swift */,
 				F7D7A1C822A75D35004EF0DD /* ViewController.swift */,
 				F7D7A1CA22A75D37004EF0DD /* Assets.xcassets */,
 				F7D7A1CC22A75D37004EF0DD /* Main.storyboard */,
@@ -95,6 +101,11 @@
 				TargetAttributes = {
 					F7D7A1C222A75D35004EF0DD = {
 						CreatedOnToolsVersion = 10.2.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -135,6 +146,8 @@
 			files = (
 				F7D7A1C922A75D35004EF0DD /* ViewController.swift in Sources */,
 				F7D7A1C722A75D35004EF0DD /* AppDelegate.swift in Sources */,
+				F7D7A1D722A75D77004EF0DD /* filePicker.swift in Sources */,
+				F7D7A1D922A75E5A004EF0DD /* paginatePDF.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

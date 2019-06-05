@@ -9,7 +9,10 @@
 import Cocoa
 
 class ViewController: NSViewController {
-
+    @IBAction func doTheThingButtonPressed(_ sender: Any) {
+        pickFile(callback: writeOnPage)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
