@@ -10,7 +10,7 @@ import Cocoa
 
 class ViewController: NSViewController {
     @IBAction func doTheThingButtonPressed(_ sender: Any) {
-        pickFile(callback: writeOnPage)
+        pickFile(callback: writeOnDocument)
     }
     
     override func viewDidLoad() {
