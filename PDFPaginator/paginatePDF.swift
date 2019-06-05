@@ -65,7 +65,7 @@ func makePDFArray(_ inUrl: URL){
     for i in 0..<pageCount {
         outArray.append(writeOnPage(doc: doc, pageNum: i))
     }
-    let otherOutUrl = URL(fileURLWithPath: "/Users/pauliglot/Downloads/othertestout.pdf")
+    let otherOutUrl = URL(fileURLWithPath: "/Users/pauliglot/Downloads/testout.pdf")
     let wholeDoc = mergePDFs(pdfs: outArray)
     wholeDoc.write(to: otherOutUrl)
 }
